@@ -23,7 +23,12 @@ class HomeScreen extends StatelessWidget {
               context.goNamed(ThreeScreen.routeName); // Named Router
               // context.go('/one/two/three');
             },
-            child: const Text('Go ThreeScreen'))
+            child: const Text('Go ThreeScreen')),
+        ElevatedButton(
+            onPressed: () {
+              context.go('/error'); // 일부러 없는 페이지로 이동
+            },
+            child: const Text('Error'))
       ],
     ));
   }

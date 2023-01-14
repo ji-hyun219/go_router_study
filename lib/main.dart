@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'screen/error_screen.dart';
 
 import 'screen/home_screen.dart';
 import 'screen/one_screen.dart';
@@ -15,6 +16,9 @@ class _App extends StatelessWidget {
 
   GoRouter get _router => GoRouter(
         initialLocation: '/',
+        errorBuilder: ((context, state) {
+          return ErrorScreen(error: state.error.toString());
+        }),
         routes: [
           GoRoute(
             path: '/', builder: (_, state) => const HomeScreen(), // state 를 받으면 상태를 사용할 수 있다
