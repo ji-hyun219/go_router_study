@@ -25,6 +25,7 @@ class _App extends StatelessWidget {
                     GoRoute(path: 'two', builder: (_, state) => const TwoScreen(), routes: [
                       GoRoute(
                         path: 'three',
+                        name: ThreeScreen.routeName,
                         builder: (_, state) => const ThreeScreen(),
                       ),
                     ]),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../layout/default_layout.dart';
+import 'three_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,7 +20,8 @@ class HomeScreen extends StatelessWidget {
             child: const Text('Go OneScreen')),
         ElevatedButton(
             onPressed: () {
-              context.go('/one/two/three');
+              context.goNamed(ThreeScreen.routeName); // Named Router
+              // context.go('/one/two/three');
             },
             child: const Text('Go ThreeScreen'))
       ],
