@@ -1,55 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'screen/error_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'screen/home_screen.dart';
-import 'screen/one_screen.dart';
-import 'screen/three_screen.dart';
-import 'screen/two_screen.dart';
+import 'provider/auth_provider.dart';
 
 void main() {
-  runApp(const _App());
+  runApp(const ProviderScope(child: _App()));
 }
 
-class _App extends StatelessWidget {
+class _App extends ConsumerWidget {
   const _App();
 
-  GoRouter get _router => GoRouter(
-        initialLocation: '/',
-        errorBuilder: ((context, state) {
-          return ErrorScreen(error: state.error.toString());
-        }),
-        routes: [
-          GoRoute(
-            path: '/', builder: (_, state) => const HomeScreen(), // state 를 받으면 상태를 사용할 수 있다
-            routes: [
-              GoRoute(path: 'one', builder: (_, state) => const OneScreen(),
-                  // http://..../one/two (/, one, two 합친 라우트의 페이지가 생김)
-                  routes: [
-                    GoRoute(path: 'two', builder: (_, state) => const TwoScreen(), routes: [
-                      GoRoute(
-                        path: 'three',
-                        name: ThreeScreen.routeName,
-                        builder: (_, state) => const ThreeScreen(),
-                      ),
-                    ]),
-                  ]),
-            ],
-          ),
-          GoRoute(
-            path: '/one',
-            builder: (_, state) => const OneScreen(),
-          ),
-          // http://..../two
-          GoRoute(
-            path: '/two',
-            builder: (_, state) => const TwoScreen(),
-          ),
-        ],
-      );
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+
     return MaterialApp.router(
       // 라우트 정보를 전달
       // routeInformationProvider: _router.routeInformationProvider,
@@ -62,7 +26,7 @@ class _App extends StatelessWidget {
       // // 실제로 어떤 라우트를 보여줄지
       // // 정하는 함수
       // routerDelegate: _router.routerDelegate,
-      routerConfig: _router,
+      routerConfig: router,
     );
   }
 }
